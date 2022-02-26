@@ -19,6 +19,8 @@ const jobOption = () => {
 
 jobRole.addEventListener('click', jobOption)
 
+ggg
+
 
 
 
