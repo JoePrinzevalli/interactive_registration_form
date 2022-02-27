@@ -5,21 +5,21 @@ nameFocus();
 // hides 'other' job role section until user selcts other option//
 const jobRole = document.getElementById('title');
 const other = document.getElementById('other-job-role');
-const value = jobRole.options[jobRole.selectedIndex].value;
-
+// const value = jobRole.options[jobRole.selectedIndex];
+console.log(jobRole[6].text)
 
 const jobOption = () => {
-    if (value !== 'other') {
-            other.style.display = 'none';
+   for (let i = 0; i < jobRole.length; i++ )
+      if (jobRole[i].text === 'Other') {
+            other.style.display = 'initial';
     } else {
-            other.style.display = 'initial ';
+            other.style.display = 'none';
     }
 }
 
 
-jobRole.addEventListener('click', jobOption)
+jobRole.addEventListener('click',jobOption())
 
-ggg
 
 
 
