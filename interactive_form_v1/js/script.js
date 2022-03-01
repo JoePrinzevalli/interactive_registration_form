@@ -63,31 +63,31 @@ fieldset.addEventListener('change', (e) => {
     }
 });
 
-// changes the payment section based on what payment validation the user selected //
+// Changes the payment section based on what payment validation the user selected //
 
 const payment = document.getElementById('payment');
 const payPal = document.getElementById('paypal');
 const bitCoin = document.getElementById('bitcoin');
 const creditCard = document.getElementById('credit-card');
 
-// sets intial payment screen for credit card //
+// Sets intial payment screen for credit card //
 payment.value = 'credit-card'
 payPal.style.display = 'none';
 bitCoin.style.display = 'none';
 
 
 payment.addEventListener('change', (e) => {    //why wont this event listner change the display, seems to only run first if command //
-    if (e.target = 'paypal') {
+    if (e.target.value === 'paypal') {
         payPal.style.display = 'block';
         bitCoin.style.display = 'none';
         creditCard.style.display = 'none';
-    } else if (e.target = 'credit-card') {
+    } else if (e.target.value === 'credit-card') {
         payPal.style.display = 'none';
         bitCoin.style.display = 'none';
         creditCard.style.display = 'block';
-    } else if (e.target = 'bitcoin') {
+    } else if (e.target.value === 'bitcoin') {
         payPal.style.display = 'none';
-        bitCoin.style.none = 'block';
+        bitCoin.style.display = 'block';
         creditCard.style.display = 'none';
     }
     console.log(payment.value)
