@@ -23,7 +23,7 @@ const colorSelect = document.getElementById('color');
 
 colorDiv.style.display = 'none';
 
-design.addEventListener('change', () => {   //figure out how to fix hidden and selected buttons //
+design.addEventListener('change', () => {   //figure out how to fix hidden and selected buttons, dont repeat this code //
         if (design.value === 'js puns') {
             colorDiv.style.display = 'initial';
             colorSelect.getElementsByTagName('option')[1].setAttribute('hidden', true)
@@ -46,7 +46,7 @@ design.addEventListener('change', () => {   //figure out how to fix hidden and s
 
 
 
-// updates the totalt cost which reflects the checked activities //
+// updates the total cost which reflects the checked activities //
 
 const totalElement = document.getElementById('activities-cost');
 const fieldset = document.getElementById('activities');
@@ -61,5 +61,71 @@ fieldset.addEventListener('change', (e) => {
         total = total - +e.target.getAttribute('data-cost');
         totalElement.innerHTML = `Total: $${total}`;
     }
+});
+
+// changes the payment section based on what payment validation the user selected //
+
+const payment = document.getElementById('payment');
+const payPal = document.getElementById('paypal');
+const bitCoin = document.getElementById('bitcoin');
+const creditCard = document.getElementById('credit-card');
+
+// sets intial payment screen for credit card //
+payment.value = 'credit-card'
+payPal.style.display = 'none';
+bitCoin.style.display = 'none';
+
+
+payment.addEventListener('change', (e) => {    //why wont this event listner change the display, seems to only run first if command //
+    if (e.target = 'paypal') {
+        payPal.style.display = 'block';
+        bitCoin.style.display = 'none';
+        creditCard.style.display = 'none';
+    } else if (e.target = 'credit-card') {
+        payPal.style.display = 'none';
+        bitCoin.style.display = 'none';
+        creditCard.style.display = 'block';
+    } else if (e.target = 'bitcoin') {
+        payPal.style.display = 'none';
+        bitCoin.style.none = 'block';
+        creditCard.style.display = 'none';
+    }
+    console.log(payment.value)
 })
+
+
+// Form Validation // ------ still working on this 
+const form = document.querySelector('form');
+
+// Name Function //
+const nameFunction = () => {
+    const nameInput = document.getElementById('name');
+    console.log(nameInput)
+    if (nameInput.value == '') {
+        alert('please fill out the name field')
+        // nameInput.style.border = 'red'
+        console.log(nameInput.value)
+    }
+}
+
+
+
+form.addEventListener('submit', (e) => {
+    if (nameFunction) {
+        e.preventDefault()
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
