@@ -21,27 +21,22 @@ const design = document.getElementById('design');
 const colorDiv = document.getElementById('shirt-colors');
 const colorSelect = document.getElementById('color');
 
+const dataThemePuns = document.querySelectorAll('[data-theme = "js puns"]')
+const dataThemeHeart = document.querySelectorAll('[data-theme = "heart js"]')
+const option = document.querySelector('[value= "cornflowerblue"]');
+
+
+
 colorDiv.style.display = 'none';
 
-design.addEventListener('change', () => {   //figure out how to fix hidden and selected buttons, dont repeat this code //
-        if (design.value === 'js puns') {
-            colorDiv.style.display = 'initial';
-            colorSelect.getElementsByTagName('option')[1].setAttribute('hidden', true)
-            colorSelect.getElementsByTagName('option')[2].setAttribute('hidden', true)
-            colorSelect.getElementsByTagName('option')[3].setAttribute('hidden', true)
-            colorSelect.getElementsByTagName('option')[4].setAttribute('selected', true)
-            colorSelect.getElementsByTagName('option')[5].setAttribute('selected', true)
-            colorSelect.getElementsByTagName('option')[6].setAttribute('selected', true)
-            
-        } else if (design.value === 'heart js'){
-            colorDiv.style.display = 'initial';
-            colorSelect.getElementsByTagName('option')[1].setAttribute('selected', true)
-            colorSelect.getElementsByTagName('option')[2].setAttribute('selected', true)
-            colorSelect.getElementsByTagName('option')[3].setAttribute('selected', true)
-            colorSelect.getElementsByTagName('option')[4].setAttribute('hidden', true)
-            colorSelect.getElementsByTagName('option')[5].setAttribute('hidden', true)
-            colorSelect.getElementsByTagName('option')[6].setAttribute('hidden', true)
-        }
+design.addEventListener('change', (e) => {   //figure out how to fix hidden and selected buttons, dont repeat this code //
+    colorDiv.style.display = 'initial';         /// for loops? /// e.target ??
+    if (e.target === document.querySelector('[value = "js puns"]')) {
+        option.setAttribute('hidden',true)
+        console.log('this works')
+    } else if (design.value === 'heart js') {
+        option.setAttribute('hidden',false)
+    }
 })
 
 
@@ -50,7 +45,6 @@ design.addEventListener('change', () => {   //figure out how to fix hidden and s
 
 const totalElement = document.getElementById('activities-cost');
 const fieldset = document.getElementById('activities');
-// let checkbox = document.querySelectorAll('input[type=checkbox]') 
 let total = 0;
 
 fieldset.addEventListener('change', (e) => {
@@ -76,7 +70,7 @@ payPal.style.display = 'none';
 bitCoin.style.display = 'none';
 
 
-payment.addEventListener('change', (e) => {    //why wont this event listner change the display, seems to only run first if command //
+payment.addEventListener('change', (e) => {    
     if (e.target.value === 'paypal') {
         payPal.style.display = 'block';
         bitCoin.style.display = 'none';
@@ -94,25 +88,71 @@ payment.addEventListener('change', (e) => {    //why wont this event listner cha
 })
 
 
-// Form Validation // ------ still working on this 
+// ---- Form Validation ------ // 
 const form = document.querySelector('form');
 
 // Name Function //
+const nameInput = document.getElementById('name');
+const whiteSpace = new RegExp('^\s+$');
+
 const nameFunction = () => {
-    const nameInput = document.getElementById('name');
-    console.log(nameInput)
-    if (nameInput.value == '') {
-        alert('please fill out the name field')
-        // nameInput.style.border = 'red'
-        console.log(nameInput.value)
+    if (nameInput.value === '' || /\s/.test(nameInput.value)) {  // is this a valid way to interpret white sapce?//
+        return false
+    } else {
+        return true
     }
 }
 
+// Email Function //
+const emailInput = document.getElementById('email');
+const validEmailString = new RegExp('[a-zA-Z0-9]+@+[a-zA-Z]+.com')
+
+const emailFunction = () => {
+    if (emailInput.value.match(validEmailString)) {
+        return true
+    } else {
+        return false
+    }
+}
+
+// Activites Function //
+const checkbox = document.querySelectorAll('input[type=checkbox]') // only works for the first chekcbox//
+
+const activityFunction = () => {
+    for (let i = 0; i < checkbox.length; i++) {
+        if(checkbox[i].checked) {
+            return true
+        } else {
+            return false
+        }
+}
+}
 
 
+// Validtion Event Listener //
 form.addEventListener('submit', (e) => {
-    if (nameFunction) {
+    if ( nameFunction() ) {
+        console.log('Name field filled out correctly. ');
+        nameInput.style.border = '1px solid rgba(36, 28, 21, 0.2)';
+    } else {
+        e.preventDefault();
+        nameInput.style.border = '3px solid red';
+        console.log('Please fill out the name field.')
+    }
+    if ( emailFunction() ) {
+        console.log('Email field filled out correctly.')
+    } else {
         e.preventDefault()
+        emailInput.style.border = '3px solid red'
+        console.log('Please type a valid email address.')
+    } 
+    if ( activityFunction() ) {
+        console.log('an activity has been picked');
+    } else {
+        e.preventDefault()
+        const activityBorder = document.getElementById('activities').firstElementChild;
+        activityBorder.style.border = '3px solid red';
+        console.log('Please select at least one activity.')
     }
 });
 
