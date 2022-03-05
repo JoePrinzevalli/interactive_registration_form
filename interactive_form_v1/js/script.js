@@ -84,7 +84,6 @@ payment.addEventListener('change', (e) => {
         bitCoin.style.display = 'block';
         creditCard.style.display = 'none';
     }
-    console.log(payment.value)
 })
 
 
@@ -128,6 +127,28 @@ const activityFunction = () => {
 }
 }
 
+// Credit Card Function //
+
+// Credit Card Regexs' //
+const creditCardNumber = new RegExp('^([0-9]{13}|[0-9]{14}|[0-9]{15}|[0-9]{16})$');
+const creditZipCode = new RegExp('^([0-9]{5})$');
+const creditCVV = new RegExp('^([0-9]{3})$');
+
+//Credit Card Input values//
+const creditCardInput = document.getElementById('cc-num');
+const zipInput = document.getElementById('zip');
+const cvvInput = document.getElementById('cvv');
+
+const creditCardFunction = () => {  // fix the if statement when bitcoin or paypal is displayed //
+    if (payment.value = 'credit-card') {
+        if(creditCardInput.value.match(creditCardNumber) && zipInput.value.match(creditZipCode) && cvvInput.value.match(creditCVV)) {
+            return true
+        } else {
+            return false
+        }
+    } 
+}
+
 
 // Validtion Event Listener //
 form.addEventListener('submit', (e) => {
@@ -147,12 +168,20 @@ form.addEventListener('submit', (e) => {
         console.log('Please type a valid email address.')
     } 
     if ( activityFunction() ) {
-        console.log('an activity has been picked');
+        console.log('An activity has been picked');
     } else {
         e.preventDefault()
         const activityBorder = document.getElementById('activities').firstElementChild;
         activityBorder.style.border = '3px solid red';
-        console.log('Please select at least one activity.')
+        console.log('Please select at least one activity.');
+    }
+    if ( creditCardFunction() ) {
+        console.log('Credit card filled out correctly.')
+    } else {
+        e.preventDefault()
+        const creditCardBorder = document.querySelector('.credit-card-box');
+        creditCardBorder.style.border = '3px solid red';
+        console.log('Please put in correct credit card values.');
     }
 });
 
