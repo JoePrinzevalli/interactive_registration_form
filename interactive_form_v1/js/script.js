@@ -18,24 +18,20 @@ jobRole.addEventListener('change', () => {
 //----Changes display of text in color dropdown, depending on what desgin user selects---//
 
 const design = document.getElementById('design');
-const colorDiv = document.getElementById('shirt-colors');
 const colorSelect = document.getElementById('color');
-
 const dataThemePuns = document.querySelectorAll('[data-theme = "js puns"]')
 const dataThemeHeart = document.querySelectorAll('[data-theme = "heart js"]')
-const option = document.querySelector('[value= "cornflowerblue"]');
 
+colorSelect.disabled = true;
 
-colorDiv.style.display = 'none';
+design.addEventListener('change', (e) => {   
+    colorSelect.disabled = false;   
 
-design.addEventListener('change', (e) => {   //figure out how to fix hidden and selected buttons, dont repeat this code //
-    colorDiv.style.display = 'initial';         /// for loops? /// e.target ??
     for(let i = 1; i < colorSelect.length; i++) {
-        if (design.value === 'js puns') {
-            option.hidden = true
-            
-        } else if (design.value === 'heart js') {
-            
+        if (e.target.value === 'js puns') {
+           
+        } else if (e.target.value === 'heart js') {
+           
         }
     }
 })
