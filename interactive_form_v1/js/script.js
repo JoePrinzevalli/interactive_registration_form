@@ -1,8 +1,8 @@
-//focuses input name text field on default//
+//---Focuses input name text field on default---//
 const nameFocus = () => document.getElementById('name').focus();
 nameFocus();
 
-// hides 'other' job role section until user selcts other option//
+//----Hides 'other' job role section until user selcts other option---//
 const jobRole = document.getElementById('title');
 const other = document.getElementById('other-job-role');
 other.style.display = 'none';
@@ -15,7 +15,7 @@ jobRole.addEventListener('change', () => {
         }
 })
 
-// changes display of text in color dropdown, depending on what desgin user selects //
+//----Changes display of text in color dropdown, depending on what desgin user selects---//
 
 const design = document.getElementById('design');
 const colorDiv = document.getElementById('shirt-colors');
@@ -26,22 +26,23 @@ const dataThemeHeart = document.querySelectorAll('[data-theme = "heart js"]')
 const option = document.querySelector('[value= "cornflowerblue"]');
 
 
-
 colorDiv.style.display = 'none';
 
 design.addEventListener('change', (e) => {   //figure out how to fix hidden and selected buttons, dont repeat this code //
     colorDiv.style.display = 'initial';         /// for loops? /// e.target ??
-    if (e.target === document.querySelector('[value = "js puns"]')) {
-        option.setAttribute('hidden',true)
-        console.log('this works')
-    } else if (design.value === 'heart js') {
-        option.setAttribute('hidden',false)
+    for(let i = 1; i < colorSelect.length; i++) {
+        if (design.value === 'js puns') {
+            option.hidden = true
+            
+        } else if (design.value === 'heart js') {
+            
+        }
     }
 })
 
 
 
-// updates the total cost which reflects the checked activities //
+//----Updates the total cost which reflects the checked activities----//
 
 const totalElement = document.getElementById('activities-cost');
 const fieldset = document.getElementById('activities');
@@ -57,7 +58,7 @@ fieldset.addEventListener('change', (e) => {
     }
 });
 
-// Changes the payment section based on what payment validation the user selected //
+//----Changes the payment section based on what payment validation the user selected-----//
 
 const payment = document.getElementById('payment');
 const payPal = document.getElementById('paypal');
@@ -115,16 +116,14 @@ const emailFunction = () => {
 }
 
 // Activites Function //
-const checkbox = document.querySelectorAll('input[type=checkbox]') // only works for the first chekcbox//
+const checkbox = document.querySelectorAll('input[type=checkbox]') 
 
 const activityFunction = () => {
     for (let i = 0; i < checkbox.length; i++) {
         if(checkbox[i].checked) {
             return true
-        } else {
-            return false
-        }
-}
+        } 
+    }
 }
 
 // Credit Card Function //
@@ -140,7 +139,7 @@ const zipInput = document.getElementById('zip');
 const cvvInput = document.getElementById('cvv');
 
 const creditCardFunction = () => {  // fix the if statement when bitcoin or paypal is displayed //
-    if (payment.value = 'credit-card') {
+    if (creditCard.style.display = 'block') {
         if(creditCardInput.value.match(creditCardNumber) && zipInput.value.match(creditZipCode) && cvvInput.value.match(creditCVV)) {
             return true
         } else {
@@ -149,44 +148,59 @@ const creditCardFunction = () => {  // fix the if statement when bitcoin or payp
     } 
 }
 
-
 // Validtion Event Listener //
+const nameValidation = document.getElementById('name').parentElement;
+const activitiesValidation = document.getElementById('activities');
+const emailValidation = document.getElementById('email').parentElement;
+const creditValidation = document.querySelector('.credit-card-box')
+
 form.addEventListener('submit', (e) => {
     if ( nameFunction() ) {
-        console.log('Name field filled out correctly. ');
-        nameInput.style.border = '1px solid rgba(36, 28, 21, 0.2)';
+        nameValidation.classList.remove('not-valid');
+        nameValidation.classList.add('valid');
     } else {
+        nameValidation.classList.add('not-valid');
+        nameValidation.classList.remove('valid');
         e.preventDefault();
-        nameInput.style.border = '3px solid red';
-        console.log('Please fill out the name field.')
     }
     if ( emailFunction() ) {
-        console.log('Email field filled out correctly.')
+        emailValidation.classList.remove('not-valid')
+        email.classList.add('valid')
     } else {
+        emailValidation.classList.add('not-valid');
+        emailValidation.classList.remove('valid');
         e.preventDefault()
-        emailInput.style.border = '3px solid red'
-        console.log('Please type a valid email address.')
     } 
     if ( activityFunction() ) {
-        console.log('An activity has been picked');
-    } else {
+        activitiesValidation.classList.remove('not-valid')
+        activitiesValidation.classList.add('valid')
+    } else {  
+        activitiesValidation.classList.remove('valid');
+        activitiesValidation.classList.add('not-valid');
+        // document.querySelector('.hint').lastElementChild.style.display = 'block'
         e.preventDefault()
-        const activityBorder = document.getElementById('activities').firstElementChild;
-        activityBorder.style.border = '3px solid red';
-        console.log('Please select at least one activity.');
     }
     if ( creditCardFunction() ) {
-        console.log('Credit card filled out correctly.')
+        creditValidation.classList.remove('not-valid')
+        creditValidation.classList.add('valid')
     } else {
-        e.preventDefault()
-        const creditCardBorder = document.querySelector('.credit-card-box');
-        creditCardBorder.style.border = '3px solid red';
-        console.log('Please put in correct credit card values.');
+        creditValidation.classList.add('not-valid');
+        creditValidation.classList.remove('valid');
+        e.preventDefault();
     }
 });
 
 
 
+//---Accessibility Event Listeners---///
+
+// checkbox.addEventListener('focus', (e) => {   //fix this// 
+//         e.target.classlist.add('focus');
+//         console.log('hi')
+// }, true)
+// checkbox.addEventListener('blur', (e) => {
+//     document.querySelector('focus').remove
+// })
 
 
 
