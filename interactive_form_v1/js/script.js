@@ -21,20 +21,32 @@ const design = document.getElementById('design');
 const colorSelect = document.getElementById('color');
 const dataThemePuns = document.querySelectorAll('[data-theme = "js puns"]')
 const dataThemeHeart = document.querySelectorAll('[data-theme = "heart js"]')
+const colors = document.querySelectorAll('[data-theme]')
 
 colorSelect.disabled = true;
 
-design.addEventListener('change', (e) => {   
-    colorSelect.disabled = false;   
-
-    for(let i = 1; i < colorSelect.length; i++) {
-        if (e.target.value === 'js puns') {
-           
-        } else if (e.target.value === 'heart js') {
-           
+design.addEventListener('change', (e) => {
+    colorSelect.disabled = false;
+    colors.forEach(color => {
+        if (e.target.value === color.getAttribute('data-theme')) {
+          color.style.display = 'block';
+        } else {
+          color.style.display = 'none';
         }
-    }
+      });
 })
+
+// design.addEventListener('change', (e) => {   
+//     colorSelect.disabled = false;   
+
+//     for(let i = 0; i < colorSelect.length; i++) {
+//         if (e.target.value === 'js puns') {
+//            console.log(colorSelect[i]);
+//         } else if (e.target.value === 'heart js') {
+           
+//         }
+//     }
+// })
 
 
 
