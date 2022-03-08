@@ -273,9 +273,9 @@ activitiesValidation.addEventListener('change', (e) => {
         }
 })
 
-//----Real Time Error Message----// ---- is it possible to place these in the validation eventlisteners??//
+//----Real Time Error Message----// 
 
-nameInput.addEventListener('keyup', (e) => {
+nameInput.addEventListener('keyup', () => {
     if ( nameFunction() ) {
         nameValidation.classList.remove('not-valid');
         nameValidation.classList.add('valid');
@@ -287,7 +287,7 @@ nameInput.addEventListener('keyup', (e) => {
     }
 })
 
-emailInput.addEventListener('keyup', (e) => {
+emailInput.addEventListener('keyup', () => {
     if ( emailFunction() ) {
         emailValidation.classList.remove('not-valid');
         emailValidation.classList.add('valid');
@@ -300,7 +300,7 @@ emailInput.addEventListener('keyup', (e) => {
 })
 
 const boxes = document.getElementById('activities-box') 
-    boxes.addEventListener('change', (e) => {
+    boxes.addEventListener('change', () => {
         if ( activityFunction() ) {
             activitiesValidation.classList.remove('not-valid');
             activitiesValidation.classList.add('valid');
@@ -312,7 +312,7 @@ const boxes = document.getElementById('activities-box')
         }
     });
 
-creditValidation.addEventListener('keyup', (e) => {
+creditCardInput.addEventListener('keyup', () => {
     if (payment.value = 'credit-card') {
         if ( creditCardFunction() ) {
         creditLabel.classList.remove('not-valid');
@@ -323,6 +323,11 @@ creditValidation.addEventListener('keyup', (e) => {
         creditLabel.classList.remove('valid');
         creditHint.style.display = 'block'
         }
+    }
+})
+
+zipInput.addEventListener('keyup', () => {
+    if (payment.value = 'credit-card') {
         if ( zipFunction() ) {
         zipLabel.classList.remove('not-valid');
         zipLabel.classList.add('valid');
@@ -332,6 +337,10 @@ creditValidation.addEventListener('keyup', (e) => {
         zipLabel.classList.remove('valid');
         zipHint.style.display = 'block'
         }
+    }
+})
+cvvInput.addEventListener('keyup', () => {
+    if (payment.value = 'credit-card') {
         if ( cvvFunction() ) {
         cvvLabel.classList.remove('not-valid');
         cvvLabel.classList.add('valid');
@@ -342,4 +351,4 @@ creditValidation.addEventListener('keyup', (e) => {
         cvvHint.style.display = 'block';
         }
     }
-});
+})
