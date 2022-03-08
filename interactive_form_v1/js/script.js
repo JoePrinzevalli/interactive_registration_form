@@ -21,8 +21,6 @@ jobRole.addEventListener('change', () => {
 
 const design = document.getElementById('design');
 const colorSelect = document.getElementById('color');
-// const dataThemePuns = document.querySelectorAll('[data-theme = "js puns"]')
-// const dataThemeHeart = document.querySelectorAll('[data-theme = "heart js"]')
 const colors = document.querySelectorAll('[data-theme]')
 
 colorSelect.disabled = true;
@@ -152,7 +150,6 @@ const cvvHint = cvvInput.nextElementSibling
 const zipHint = zipInput.nextElementSibling;
 const creditHint = creditCardInput.nextElementSibling;
 
-
 form.addEventListener('submit', (e) => {
     if ( nameFunction() ) {
         nameValidation.classList.remove('not-valid');
@@ -202,7 +199,6 @@ form.addEventListener('submit', (e) => {
     }
 });
 
-
 // ---Accessibility Event Listeners---///
 const dateAndTime = document.querySelectorAll('[data-day-and-time]');
 
@@ -214,7 +210,6 @@ for(let i = 0; i < checkbox.length; i++) {
         e.target.parentElement.classList.remove('focus');
     });
 }
-
 
 //---Conflicting Activites Fucntion--//
 
@@ -232,10 +227,10 @@ activitiesValidation.addEventListener('change', (e) => {
         }
 })
 
-//----Real Time Error Message----//
+//----Real Time Error Message----// ---- is it possible to place these in the validation eventlisteners??//
 
 
-form.addEventListener('keyup', (e) => {
+nameInput.addEventListener('keyup', (e) => {
     if ( nameFunction() ) {
         nameValidation.classList.remove('not-valid');
         nameValidation.classList.add('valid');
@@ -247,5 +242,51 @@ form.addEventListener('keyup', (e) => {
         e.preventDefault();
     }
 })
+
+emailInput.addEventListener('keyup', (e) => {
+    if ( emailFunction() ) {
+        emailValidation.classList.remove('not-valid');
+        emailValidation.classList.add('valid');
+        document.getElementById('email-hint').style.display = 'none'
+    } else {
+        emailValidation.classList.add('not-valid');
+        emailValidation.classList.remove('valid');
+        document.getElementById('email-hint').style.display = 'block';
+        e.preventDefault()
+    } 
+})
+
+const boxes = document.getElementById('activities-box') //this one is not working//
+    boxes.addEventListener('keyup', (e) => {
+        if ( activityFunction() ) {
+            activitiesValidation.classList.remove('not-valid');
+            activitiesValidation.classList.add('valid');
+            document.getElementById('activities-hint').style.display = 'none';
+        } else {  
+            activitiesValidation.classList.remove('valid');
+            activitiesValidation.classList.add('not-valid');
+            document.getElementById('activities-hint').style.display = 'block';
+            e.preventDefault()
+        }
+    });
+
+creditValidation.addEventListener('keyup', (e) => {
+    if (payment.value = 'credit-card') {
+        if ( creditCardFunction() ) {
+        creditValidation.classList.remove('not-valid');
+        creditValidation.classList.add('valid');
+        cvvHint.style.display = 'none'
+        zipHint.style.display = 'none'
+        creditHint.style.display = 'none'
+    } else {
+        creditValidation.classList.add('not-valid');
+        creditValidation.classList.remove('valid');
+        cvvHint.style.display = 'block';
+        zipHint.style.display = 'block'
+        creditHint.style.display = 'block'
+        e.preventDefault();
+        }
+    }
+});
 
 
