@@ -91,7 +91,7 @@ const nameInput = document.getElementById('name');
 const whiteSpace = new RegExp('^\s+$');
 
 const nameFunction = () => {
-    if (nameInput.value === '' || /\s/.test(nameInput.value)) {  // is this a valid way to interpret white sapce?//
+    if (nameInput.value === '' || /\s/.test(nameInput.value)) {  
         return false
     } else {
         return true
@@ -158,7 +158,7 @@ const cvvFunction = () => {
 
 
 
-// Validtion Event Listener // ----- alot of repeated code see if you can DRY princciple---//
+// Validtion Event Listener // 
 const nameValidation = document.getElementById('name').parentElement;
 const activitiesValidation = document.getElementById('activities');
 const emailValidation = document.getElementById('email').parentElement;
