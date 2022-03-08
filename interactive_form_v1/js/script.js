@@ -29,7 +29,8 @@ design.addEventListener('change', (e) => {
     colorSelect.disabled = false;
     colors.forEach(color => {
         if (e.target.value === color.getAttribute('data-theme')) {
-          color.style.display = 'block';
+            color.style.display = 'block';
+            colorSelect.value = '';
         } else {
           color.style.display = 'none';
         }
@@ -132,13 +133,30 @@ const creditCardInput = document.getElementById('cc-num');
 const zipInput = document.getElementById('zip');
 const cvvInput = document.getElementById('cvv');
 
+
 const creditCardFunction = () => {  // fix the if statement when bitcoin or paypal is displayed //
-    if(creditCardInput.value.match(creditCardNumber) && zipInput.value.match(creditZipCode) && cvvInput.value.match(creditCVV)) {
+    if(creditCardInput.value.match(creditCardNumber)) {
         return true
     } else {
         return false
     }
 }
+const zipFunction = () => {
+    if (zipInput.value.match(creditZipCode)) {
+        return true 
+    } else {
+        return false
+    }
+}
+const cvvFunction = () => {
+    if (cvvInput.value.match(creditCVV)) {
+        return true 
+    } else {
+        return false
+    }
+}
+
+
 
 // Validtion Event Listener // ----- alot of repeated code see if you can DRY princciple---//
 const nameValidation = document.getElementById('name').parentElement;
@@ -146,6 +164,10 @@ const activitiesValidation = document.getElementById('activities');
 const emailValidation = document.getElementById('email').parentElement;
 const creditValidation = document.querySelector('.credit-card-box')
 
+const creditLabel = document.querySelector('.num-box').firstElementChild;
+const zipLabel = document.querySelector('.zip-box').firstElementChild;
+const cvvLabel = document.querySelector('.cvv-box').firstElementChild;
+ 
 const cvvHint = cvvInput.nextElementSibling
 const zipHint = zipInput.nextElementSibling;
 const creditHint = creditCardInput.nextElementSibling;
@@ -169,10 +191,10 @@ form.addEventListener('submit', (e) => {
         const invalidCom = '.com'
         const invalidGmail = '@gmail'
         if(!emailInput.value.includes(invalidCom)) {
-        alert('Please end your email address with a .com')
+            document.getElementById('email-hint').innerHTML = 'Please include a ".com" in your email address.'
         };
         if(!emailInput.value.includes(invalidGmail)) {
-            alert('Please include a @gmail in your email address.')
+            document.getElementById('email-hint').innerHTML = 'Please include a @gmail in your email address.'
         };
         emailValidation.classList.add('not-valid');
         emailValidation.classList.remove('valid');
@@ -189,20 +211,35 @@ form.addEventListener('submit', (e) => {
         document.getElementById('activities-hint').style.display = 'block';
         e.preventDefault()
     }
-    if (payment.value = 'credit-card') {
+    if (payment.value === 'credit-card') {
         if ( creditCardFunction() ) {
-        creditValidation.classList.remove('not-valid');
-        creditValidation.classList.add('valid');
-        cvvHint.style.display = 'none'
-        zipHint.style.display = 'none'
+        creditLabel.classList.remove('not-valid');
+        creditLabel.classList.add('valid');
         creditHint.style.display = 'none'
-        console.log('this function is true when form submits.')
-    } else {
-        creditValidation.classList.add('not-valid');
-        creditValidation.classList.remove('valid');
-        cvvHint.style.display = 'block';
-        zipHint.style.display = 'block'
+        } else {
+        creditLabel.classList.add('not-valid');
+        creditLabel.classList.remove('valid');
         creditHint.style.display = 'block'
+        e.preventDefault();
+        }
+        if ( zipFunction() ) {
+        zipLabel.classList.remove('not-valid');
+        zipLabel.classList.add('valid');
+        zipHint.style.display = 'none'
+        } else {
+        zipLabel.classList.add('not-valid');
+        zipLabel.classList.remove('valid');
+        zipHint.style.display = 'block'
+        e.preventDefault();
+        }
+        if ( cvvFunction() ) {
+        cvvLabel.classList.remove('not-valid');
+        cvvLabel.classList.add('valid');
+        cvvHint.style.display = 'none'
+        } else {
+        cvvLabel.classList.add('not-valid');
+        cvvLabel.classList.remove('valid');
+        cvvHint.style.display = 'block';
         e.preventDefault();
         }
     }
@@ -247,7 +284,6 @@ nameInput.addEventListener('keyup', (e) => {
         nameValidation.classList.add('not-valid');
         nameValidation.classList.remove('valid');
         document.getElementById('name-hint').style.display = 'block';
-        e.preventDefault();
     }
 })
 
@@ -260,7 +296,6 @@ emailInput.addEventListener('keyup', (e) => {
         emailValidation.classList.add('not-valid');
         emailValidation.classList.remove('valid');
         document.getElementById('email-hint').style.display = 'block';
-        e.preventDefault()
     } 
 })
 
@@ -274,27 +309,37 @@ const boxes = document.getElementById('activities-box')
             activitiesValidation.classList.remove('valid');
             activitiesValidation.classList.add('not-valid');
             document.getElementById('activities-hint').style.display = 'block';
-            e.preventDefault()
         }
     });
 
-//This function stops the form from submitting//
-
-// creditValidation.addEventListener('keyup', (e) => {
-//     if (payment.value = 'credit-card') {
-//         if ( creditCardFunction() ) {
-//         creditValidation.classList.remove('not-valid');
-//         creditValidation.classList.add('valid');
-//         cvvHint.style.display = 'none'
-//         zipHint.style.display = 'none'
-//         creditHint.style.display = 'none'
-//     } else {
-//         creditValidation.classList.add('not-valid');
-//         creditValidation.classList.remove('valid');
-//         cvvHint.style.display = 'block';
-//         zipHint.style.display = 'block'
-//         creditHint.style.display = 'block'
-//         e.preventDefault();
-//         }
-//     }
-// });
+creditValidation.addEventListener('keyup', (e) => {
+    if (payment.value = 'credit-card') {
+        if ( creditCardFunction() ) {
+        creditLabel.classList.remove('not-valid');
+        creditLabel.classList.add('valid');
+        creditHint.style.display = 'none'
+        } else {
+        creditLabel.classList.add('not-valid');
+        creditLabel.classList.remove('valid');
+        creditHint.style.display = 'block'
+        }
+        if ( zipFunction() ) {
+        zipLabel.classList.remove('not-valid');
+        zipLabel.classList.add('valid');
+        zipHint.style.display = 'none'
+        } else {
+        zipLabel.classList.add('not-valid');
+        zipLabel.classList.remove('valid');
+        zipHint.style.display = 'block'
+        }
+        if ( cvvFunction() ) {
+        cvvLabel.classList.remove('not-valid');
+        cvvLabel.classList.add('valid');
+        cvvHint.style.display = 'none'
+        } else {
+        cvvLabel.classList.add('not-valid');
+        cvvLabel.classList.remove('valid');
+        cvvHint.style.display = 'block';
+        }
+    }
+});
