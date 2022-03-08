@@ -134,7 +134,7 @@ const zipInput = document.getElementById('zip');
 const cvvInput = document.getElementById('cvv');
 
 
-const creditCardFunction = () => {  // fix the if statement when bitcoin or paypal is displayed //
+const creditCardFunction = () => {  
     if(creditCardInput.value.match(creditCardNumber)) {
         return true
     } else {
