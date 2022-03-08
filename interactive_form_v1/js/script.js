@@ -166,6 +166,14 @@ form.addEventListener('submit', (e) => {
         emailValidation.classList.add('valid');
         document.getElementById('email-hint').style.display = 'none'
     } else {
+        const invalidCom = '.com'
+        const invalidGmail = '@gmail'
+        if(!emailInput.value.includes(invalidCom)) {
+        alert('Please end your email address with a .com')
+        }
+        if(!emailInput.value.includes(invalidGmail)) {
+            alert('Please include a @gmail in your email address.')
+        }
         emailValidation.classList.add('not-valid');
         emailValidation.classList.remove('valid');
         document.getElementById('email-hint').style.display = 'block';
@@ -221,14 +229,13 @@ activitiesValidation.addEventListener('change', (e) => {
                 if (e.target.name !== checkbox[i].name){
                     checkbox[i].disabled = true;
                 } 
-            } else {
-                checkbox[i].disabled = false;
-            }
+            } 
+        } else {
+            checkbox[i].disabled = false;
         }
 })
 
 //----Real Time Error Message----// ---- is it possible to place these in the validation eventlisteners??//
-
 
 nameInput.addEventListener('keyup', (e) => {
     if ( nameFunction() ) {
@@ -270,23 +277,23 @@ const boxes = document.getElementById('activities-box') //this one is not workin
         }
     });
 
-creditValidation.addEventListener('keyup', (e) => {
-    if (payment.value = 'credit-card') {
-        if ( creditCardFunction() ) {
-        creditValidation.classList.remove('not-valid');
-        creditValidation.classList.add('valid');
-        cvvHint.style.display = 'none'
-        zipHint.style.display = 'none'
-        creditHint.style.display = 'none'
-    } else {
-        creditValidation.classList.add('not-valid');
-        creditValidation.classList.remove('valid');
-        cvvHint.style.display = 'block';
-        zipHint.style.display = 'block'
-        creditHint.style.display = 'block'
-        e.preventDefault();
-        }
-    }
-});
+// creditValidation.addEventListener('keyup', (e) => {
+//     if (payment.value = 'credit-card') {
+//         if ( creditCardFunction() ) {
+//         creditValidation.classList.remove('not-valid');
+//         creditValidation.classList.add('valid');
+//         cvvHint.style.display = 'none'
+//         zipHint.style.display = 'none'
+//         creditHint.style.display = 'none'
+//     } else {
+//         creditValidation.classList.add('not-valid');
+//         creditValidation.classList.remove('valid');
+//         cvvHint.style.display = 'block';
+//         zipHint.style.display = 'block'
+//         creditHint.style.display = 'block'
+//         e.preventDefault();
+//         }
+//     }
+// });
 
 
