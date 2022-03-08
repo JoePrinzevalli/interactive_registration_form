@@ -170,10 +170,10 @@ form.addEventListener('submit', (e) => {
         const invalidGmail = '@gmail'
         if(!emailInput.value.includes(invalidCom)) {
         alert('Please end your email address with a .com')
-        }
+        };
         if(!emailInput.value.includes(invalidGmail)) {
             alert('Please include a @gmail in your email address.')
-        }
+        };
         emailValidation.classList.add('not-valid');
         emailValidation.classList.remove('valid');
         document.getElementById('email-hint').style.display = 'block';
@@ -196,6 +196,7 @@ form.addEventListener('submit', (e) => {
         cvvHint.style.display = 'none'
         zipHint.style.display = 'none'
         creditHint.style.display = 'none'
+        console.log('this function is true when form submits.')
     } else {
         creditValidation.classList.add('not-valid');
         creditValidation.classList.remove('valid');
@@ -263,8 +264,8 @@ emailInput.addEventListener('keyup', (e) => {
     } 
 })
 
-const boxes = document.getElementById('activities-box') //this one is not working//
-    boxes.addEventListener('keyup', (e) => {
+const boxes = document.getElementById('activities-box') 
+    boxes.addEventListener('change', (e) => {
         if ( activityFunction() ) {
             activitiesValidation.classList.remove('not-valid');
             activitiesValidation.classList.add('valid');
@@ -276,6 +277,8 @@ const boxes = document.getElementById('activities-box') //this one is not workin
             e.preventDefault()
         }
     });
+
+//This function stops the form from submitting//
 
 // creditValidation.addEventListener('keyup', (e) => {
 //     if (payment.value = 'credit-card') {
@@ -295,5 +298,3 @@ const boxes = document.getElementById('activities-box') //this one is not workin
 //         }
 //     }
 // });
-
-
