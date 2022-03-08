@@ -1,3 +1,5 @@
+//----This js file includes all the of the written javascript code for this validation form----//
+
 //---Focuses input name text field on default---//
 const nameFocus = () => document.getElementById('name').focus();
 nameFocus();
@@ -19,8 +21,8 @@ jobRole.addEventListener('change', () => {
 
 const design = document.getElementById('design');
 const colorSelect = document.getElementById('color');
-const dataThemePuns = document.querySelectorAll('[data-theme = "js puns"]')
-const dataThemeHeart = document.querySelectorAll('[data-theme = "heart js"]')
+// const dataThemePuns = document.querySelectorAll('[data-theme = "js puns"]')
+// const dataThemeHeart = document.querySelectorAll('[data-theme = "heart js"]')
 const colors = document.querySelectorAll('[data-theme]')
 
 colorSelect.disabled = true;
@@ -35,20 +37,6 @@ design.addEventListener('change', (e) => {
         }
       });
 })
-
-// design.addEventListener('change', (e) => {   
-//     colorSelect.disabled = false;   
-
-//     for(let i = 0; i < colorSelect.length; i++) {
-//         if (e.target.value === 'js puns') {
-//            console.log(colorSelect[i]);
-//         } else if (e.target.value === 'heart js') {
-           
-//         }
-//     }
-// })
-
-
 
 //----Updates the total cost which reflects the checked activities----//
 
@@ -124,13 +112,13 @@ const emailFunction = () => {
 }
 
 // Activites Function //
-const checkbox = document.querySelectorAll('input[type=checkbox]') 
+const checkbox = document.querySelectorAll('input[type=checkbox]');
 
-const activityFunction = () => {
+const activityFunction = (e) => {
     for (let i = 0; i < checkbox.length; i++) {
         if(checkbox[i].checked) {
             return true
-        } 
+        }
     }
 }
 
@@ -141,19 +129,17 @@ const creditCardNumber = new RegExp('^([0-9]{13}|[0-9]{14}|[0-9]{15}|[0-9]{16})$
 const creditZipCode = new RegExp('^([0-9]{5})$');
 const creditCVV = new RegExp('^([0-9]{3})$');
 
-//Credit Card Input values//
+//Credit Card Input Values//
 const creditCardInput = document.getElementById('cc-num');
 const zipInput = document.getElementById('zip');
 const cvvInput = document.getElementById('cvv');
 
 const creditCardFunction = () => {  // fix the if statement when bitcoin or paypal is displayed //
-    if (creditCard.style.display = 'block') {
-        if(creditCardInput.value.match(creditCardNumber) && zipInput.value.match(creditZipCode) && cvvInput.value.match(creditCVV)) {
-            return true
-        } else {
-            return false
-        }
-    } 
+    if(creditCardInput.value.match(creditCardNumber) && zipInput.value.match(creditZipCode) && cvvInput.value.match(creditCVV)) {
+        return true
+    } else {
+        return false
+    }
 }
 
 // Validtion Event Listener // ----- alot of repeated code see if you can DRY princciple---//
@@ -198,13 +184,13 @@ form.addEventListener('submit', (e) => {
         document.getElementById('activities-hint').style.display = 'block';
         e.preventDefault()
     }
-    if ( creditCardFunction() ) {
+    if (payment.value = 'credit-card') {
+        if ( creditCardFunction() ) {
         creditValidation.classList.remove('not-valid');
         creditValidation.classList.add('valid');
         cvvHint.style.display = 'none'
         zipHint.style.display = 'none'
         creditHint.style.display = 'none'
-
     } else {
         creditValidation.classList.add('not-valid');
         creditValidation.classList.remove('valid');
@@ -212,28 +198,54 @@ form.addEventListener('submit', (e) => {
         zipHint.style.display = 'block'
         creditHint.style.display = 'block'
         e.preventDefault();
+        }
     }
 });
 
 
+// ---Accessibility Event Listeners---///
+const dateAndTime = document.querySelectorAll('[data-day-and-time]');
 
-//---Accessibility Event Listeners---///
-
-// checkbox.addEventListener('focus', (e) => {   //fix this// 
-//         e.target.classlist.add('focus');
-//         console.log('hi')
-// }, true)
-// checkbox.addEventListener('blur', (e) => {
-//     document.querySelector('focus').remove
-// })
-
-
-
+for(let i = 0; i < checkbox.length; i++) {
+    checkbox[i].addEventListener('focus',(e) => {   
+        e.target.parentElement.classList.add('focus');
+    });
+    checkbox[i].addEventListener('blur',(e) => {   
+        e.target.parentElement.classList.remove('focus');
+    });
+}
 
 
+//---Conflicting Activites Fucntion--//
+
+activitiesValidation.addEventListener('change', (e) => {
+    for(let i = 0; i < checkbox.length; i++)
+        if (e.target.checked) {
+            const checkboxTime = checkbox[i].getAttribute('data-day-and-time')
+            if (e.target.getAttribute('data-day-and-time') === checkboxTime) {
+                if (e.target.name !== checkbox[i].name){
+                    checkbox[i].disabled = true;
+                } 
+            } else {
+                checkbox[i].disabled = false;
+            }
+        }
+})
+
+//----Real Time Error Message----//
 
 
-
-
+form.addEventListener('keyup', (e) => {
+    if ( nameFunction() ) {
+        nameValidation.classList.remove('not-valid');
+        nameValidation.classList.add('valid');
+        document.getElementById('name-hint').style.display = 'none';
+    } else {
+        nameValidation.classList.add('not-valid');
+        nameValidation.classList.remove('valid');
+        document.getElementById('name-hint').style.display = 'block';
+        e.preventDefault();
+    }
+})
 
 
