@@ -9,8 +9,8 @@
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
-            "file": "${workspaceFolder}/interactive_form_v1/index.html"
+            "webRoot": "${workspaceFolder}",
+            "file": "${workspaceFolder}/index.html"
         }
     ]
 }
